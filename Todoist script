@@ -19,10 +19,10 @@ console.log(`data: ${data}`);
 //Requests
 //
 async function RequestProject() {  
-  const url = "https://api.todoist.com/rest/v2/project"; // /" + Project_ID;
+  const url = "https://api.todoist.com/rest/v2/projects/" + Project_ID;
   const headers = {
     "Authorization": "Bearer " + Bearer_Token,
-  //  "X-Request-Id" : "" + UUID_Throwaway
+    "X-Request-Id" : "" + UUID_Throwaway
   };
   const data = await RequestWithJson(url, headers);
   return data || false;
