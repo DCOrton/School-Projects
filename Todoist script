@@ -5,7 +5,7 @@
 //
 const Bearer_Token = 'some_token' 
 const Project_ID = 'some_project'
-const Task_ID = 'some-task' 
+const Task_ID = '6162075719' 
 
 //Generate UUID
 const UUID_Throwaway = UUID.string()
@@ -18,33 +18,12 @@ console.log(`data: ${data}`);
 
 //Requests
 //
-async function NewTask() {  
+async function getTasks() {  
   const url = "https://api.todoist.com/rest/v2/tasks";
   const headers = {
     "Content-Type": "application/json",
     "X-Request-Id" : "" + UUID_Throwaway,
     "Authorization": "Bearer " + Bearer_Token
-  };
-  const body = {"content": "This is a test", "project_id": "" + Project_ID }
-  const data = await RequestWithJson(url, headers, body);
-  return data || false;
-}
-
-
-async function RequestProject() {  
-  const url = "https://api.todoist.com/rest/v2/projects/" + Project_ID;
-  const headers = {
-    "Authorization": "Bearer " + Bearer_Token,
-    "X-Request-Id" : "" + UUID_Throwaway
-  };
-  const data = await RequestWithJson(url, headers);
-  return data || false;
-}
-async function RequestTask() {  
-  const url = "https://api.todoist.com/rest/v2/tasks/" + Task_ID;
-  const headers = {
-    "Authorization": "Bearer " + Bearer_Token,
-    "X-Request-Id" : "" + UUID_Throwaway
   };
   const data = await RequestWithJson(url, headers);
   return data || false;
@@ -73,27 +52,13 @@ async function RequestWithJson(url, headers) {
     console.error(error);
   }
 }
-async function RequestWithJson(url, headers, body) {
-  try {
-    console.log(`Fetching url: ${url}`);
-    const req = new Request(url);
-    req.method = "get";
-    req.headers = headers;
-    req.body = body;
-    const resp = await req.loadJSON();
-    return resp;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 async function RequestNoJson(url, headers) {
   try {
     console.log(`Fetching url: ${url}`);
     const req = new Request(url);
     req.method = "get";
     req.headers = headers;
-    const resp = await req.loadJSON();
+    const resp = await req.load();
     return resp;
   } catch (error) {
     console.error(error);
