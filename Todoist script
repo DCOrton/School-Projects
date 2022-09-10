@@ -12,7 +12,7 @@ const UUID_Throwaway = UUID.string()
 console.log(`data: ${UUID_Throwaway}`);
 
 //Testing
-const data = await RequestProject()
+const data = await CloseTask();
 console.log(`data: ${data}`);
 
 
@@ -56,9 +56,9 @@ async function RequestNoJson(url, headers) {
   try {
     console.log(`Fetching url: ${url}`);
     const req = new Request(url);
-    req.method = "get";
+    req.method = "POST";
     req.headers = headers;
-    const resp = await req.load();
+    const resp = await req.loadString();
     return resp;
   } catch (error) {
     console.error(error);
