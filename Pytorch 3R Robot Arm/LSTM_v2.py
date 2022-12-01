@@ -1,3 +1,13 @@
+import torch
+import torch.nn.functional as F 
+import torchvision.datasets as datasets 
+import torchvision.transforms as transforms  
+from torch import optim 
+from torch import nn  
+from torch.utils.data import DataLoader  
+from torch.utils.data import TensorDataset  
+from tqdm import tqdm  
+
 from sympy import symbols, pi, sin, cos, simplify
 from sympy.matrices import Matrix
 import numpy as np
@@ -8,15 +18,6 @@ import time
 import math
 from itertools import product as prod
 
-import torch
-import torch.nn.functional as F 
-import torchvision.datasets as datasets 
-import torchvision.transforms as transforms  
-from torch import optim 
-from torch import nn  
-from torch.utils.data import DataLoader  
-from torch.utils.data import TensorDataset  
-from tqdm import tqdm  
 
 #DH Paramater Creation
 def Dh_param_matrix(a, d, Alpha, Nu):
