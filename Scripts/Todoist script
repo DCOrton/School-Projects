@@ -1,0 +1,69 @@
+// DCOrton
+// Sept. 10, 2022
+
+//Set up 
+//
+const Bearer_Token = 'some_token' 
+const Project_ID = 'some_project'
+const Task_ID = 'some_task' 
+
+//Generate UUID
+const UUID_Throwaway = UUID.string()
+console.log(`data: ${UUID_Throwaway}`);
+
+//Main 
+
+
+//Testing
+const data = await CloseTask();
+console.log(`data: ${data}`);
+
+
+//Requests
+//
+async function getTasks() {  
+  const url = "https://api.todoist.com/rest/v2/tasks";
+  const headers = {
+    "Content-Type": "application/json",
+    "X-Request-Id" : "" + UUID_Throwaway,
+    "Authorization": "Bearer " + Bearer_Token
+  };
+  const data = await RequestWithJson(url, headers);
+  return data || false;
+}
+async function CloseTask() {  
+  const url = "https://api.todoist.com/rest/v2/tasks/" + Task_ID + "/close";
+  const headers = {
+    "Authorization": "Bearer " + Bearer_Token,
+    "X-Request-Id" : "" + UUID_Throwaway
+  };
+  const data = await RequestNoJson(url, headers);
+  return data || false;
+}
+
+//Help 
+//
+async function RequestWithJson(url, headers) {
+  try {
+    console.log(`Fetching url: ${url}`);
+    const req = new Request(url);
+    req.method = "get";
+    req.headers = headers;
+    const resp = await req.loadJSON();
+    return resp;
+  } catch (error) {
+    console.error(error);
+  }
+}
+async function RequestNoJson(url, headers) {
+  try {
+    console.log(`Fetching url: ${url}`);
+    const req = new Request(url);
+    req.method = "POST";
+    req.headers = headers;
+    const resp = await req.loadString();
+    return resp;
+  } catch (error) {
+    console.error(error);
+  }
+}
